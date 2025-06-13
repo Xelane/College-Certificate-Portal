@@ -1,0 +1,116 @@
+/* Colors */
+:root {
+    --white: #ffffff;
+    --primary-blue: #0a47a2;
+    --secondary-blue: #0a3d62;
+    --placeholder-color: #b0c4de;
+    --background-image: url('/bg2.jpg');
+  }
+  
+  /* General Styles */
+  body { 
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: var(--background-image);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: var(--white);
+  }
+  
+  h1, h2 {
+    text-align: center;
+    margin: 0.5em 0;
+  }
+  
+  /* Button Styles */
+  .button {
+    font-size: 1rem;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: var(--white);
+    color: var(--secondary-blue);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .button:active {
+    transform: scale(0.95);
+  }
+  
+  /* Specific Button Variants */
+  .login-button, .signup-button, .dashboard-button {
+    background-color: var(--white);
+    color: var(--primary-blue);
+  }
+  
+  .signup-button {
+    border: 2px solid var(--white);
+  }
+  
+  /* Layout Styles */
+  .login-container, .signup-container, .dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .logo, .dashboard-logo {
+    width: 350px;
+    margin-bottom: 20px;
+  }
+  
+  .login-title, .signup-title, .dashboard-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Form Styles */
+  .login-form, .signup-form, .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .login-input, .signup-input {
+    padding: 10px;
+    border: 2px solid var(--white);
+    border-radius: 5px;
+    background-color: transparent;
+    color: var(--white);
+    font-size: 16px;
+  }
+  
+  .login-input::placeholder, .signup-input::placeholder {
+    color: var(--placeholder-color);
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 1.5s ease-out;
+  }
+  

@@ -1,0 +1,7 @@
+{
+    "rewrites": [
+      { "source": "/api/applications/:prnNo/verify", "destination": "/api/verify" },
+      { "source": "/api/applications/:prnNo/status", "destination": "/api/status" }
+    ]
+  }
+  

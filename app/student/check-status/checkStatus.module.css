@@ -1,0 +1,65 @@
+/* app/student/checkStatus/checkStatus.module.css */
+.statusContainer {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.error {
+  color: red;
+  text-align: center;
+}
+
+.statusTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tableHeader {
+  border-bottom: 2px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  background-color: #f1f1f1;
+  font-weight: bold;
+  color: #555;
+}
+
+.tableRow:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tableData {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  color: #333;
+}
+
+.statusIcon {
+  font-size: 20px;
+}
+
+.reminder {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.noStatus {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}
