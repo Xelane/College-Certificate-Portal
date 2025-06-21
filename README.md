@@ -3,7 +3,7 @@
 A full-stack web app for managing student certificate requests (e.g., Bonafide, Domicile, Leaving Certificate).  
 Built with **Next.js 15 App Router**, **Node.js**, **MongoDB**, and **PDF generation**.
 
-👉 **Live Demo:** [https://<your-vercel-url>.vercel.app](https://<your-vercel-url>.vercel.app)
+👉 **Live Demo:** [https://<your-vercel-url>.vercel.app](https://college-certificate-portal-qlgf.vercel.app)
 
 ---
 
