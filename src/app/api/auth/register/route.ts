@@ -6,10 +6,10 @@ import bcrypt from 'bcryptjs'
 export async function POST(req: NextRequest) {
   try {
     await connectDB()
-    const { name, email, password, role } = await req.json()
+    const { name, email, password, role, facultyDept } = await req.json()
 
-    if (!name || !email || !password) {
-      return NextResponse.json({ message: 'Missing fields' }, { status: 400 })
+    if (!name || !email || !password || !role) {
+      return NextResponse.json({ message: 'Missing required fields' }, { status: 400 })
     }
 
     const existingUser = await User.findOne({ email })
@@ -23,7 +23,8 @@ export async function POST(req: NextRequest) {
       name,
       email,
       password: hashedPassword,
-      role: role || 'student'
+      role,
+      facultyDept: role === 'faculty' ? facultyDept : null
     })
 
     return NextResponse.json({ message: 'User registered', user: newUser }, { status: 201 })

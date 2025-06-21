@@ -20,10 +20,15 @@ export async function POST(req: NextRequest) {
     }
 
     const token = jwt.sign(
-      { userId: user._id, role: user.role },
-      process.env.JWT_SECRET!,
-      { expiresIn: '7d' }
+        {
+            userId: user._id,
+            role: user.role,
+            facultyDept: user.facultyDept || null
+        },
+        process.env.JWT_SECRET!,
+        { expiresIn: '7d' }
     )
+
 
     return NextResponse.json({ token, role: user.role, name: user.name }, { status: 200 })
   } catch (err) {
