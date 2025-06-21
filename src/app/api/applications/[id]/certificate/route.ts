@@ -3,30 +3,29 @@ import { PDFDocument, rgb, StandardFonts } from 'pdf-lib'
 import { connectDB } from '@/lib/mongodb'
 import Application from '@/models/Application'
 
-type Params = {
-  params: {
-    id: string
-  }
-}
-
-export async function GET(req: NextRequest, { params }: Params) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   await connectDB()
-
-  const app = await Application.findById(params.id)
-
-    if (!app) {
+  
+  // Await the params since it's now a Promise in Next.js 15
+  const { id } = await params
+  
+  const app = await Application.findById(id)
+  
+  if (!app) {
     return NextResponse.json({ message: 'Application not found' }, { status: 404 })
-    }
-
-    if (app.status !== 'completed') {
+  }
+  
+  if (app.status !== 'completed') {
     return NextResponse.json({ message: 'Certificate not available until completed' }, { status: 403 })
-    }
-
+  }
 
   const pdfDoc = await PDFDocument.create()
   const page = pdfDoc.addPage([600, 400])
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica)
-
+  
   const drawText = (text: string, x: number, y: number, size = 14) => {
     page.drawText(text, {
       x,
@@ -44,7 +43,7 @@ export async function GET(req: NextRequest, { params }: Params) {
   drawText(`Issued on: ${new Date(app.submittedAt).toLocaleDateString()}`, 50, 210)
 
   const pdfBytes = await pdfDoc.save()
-
+  
   return new NextResponse(Buffer.from(pdfBytes), {
     headers: {
       'Content-Type': 'application/pdf',
