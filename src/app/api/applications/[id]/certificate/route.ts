@@ -4,7 +4,8 @@ import { connectDB } from '@/lib/mongodb'
 import Application from '@/models/Application'
 import { verifyToken } from '@/lib/auth'
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, context: { params: { id: string } }) {
+  const { params } = context
   await connectDB()
 
   const app = await Application.findById(params.id)
