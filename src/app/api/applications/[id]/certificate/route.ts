@@ -2,10 +2,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib'
 import { connectDB } from '@/lib/mongodb'
 import Application from '@/models/Application'
-import { verifyToken } from '@/lib/auth'
 
-export async function GET(req: NextRequest, context: { params: { id: string } }) {
-  const { params } = context
+type Params = {
+  params: {
+    id: string
+  }
+}
+
+export async function GET(req: NextRequest, { params }: Params) {
   await connectDB()
 
   const app = await Application.findById(params.id)
