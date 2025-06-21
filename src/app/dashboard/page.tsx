@@ -17,6 +17,7 @@ interface Application {
   department: string
   certificateType: string
   status: string
+  submittedAt: string
   approvals: {
     department: string
     approved: boolean
@@ -29,6 +30,8 @@ export default function DashboardPage() {
   const [applications, setApplications] = useState<Application[]>([])
   const [role, setRole] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [filter, setFilter] = useState('all')
+
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -58,9 +61,13 @@ export default function DashboardPage() {
 
   if (loading) return <p className="p-4">Loading dashboard...</p>
 
+    const filteredApps = applications.filter((app) =>
+        filter === 'all' ? true : app.status === filter
+    )
+
   return (
     <div className="min-h-screen bg-gray-100 text-black">
-    <div className="p-6 max-w-4xl mx-auto"></div>
+    <div className="p-6 max-w-4xl mx-auto">
     <div className="min-h-screen bg-gray-100 text-black p-6 max-w-4xl mx-auto">
     <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">
@@ -78,50 +85,84 @@ export default function DashboardPage() {
         </button>
         </div>
 
+        {applications.length > 0 && (
+        <div className="mb-4">
+            <label className="mr-2 text-sm">Filter by status:</label>
+            <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="border px-2 py-1 rounded text-sm"
+            >
+            <option value="all">All</option>
+            <option value="pending">Pending</option>
+            <option value="in_progress">In Progress</option>
+            <option value="completed">Completed</option>
+            <option value="rejected">Rejected</option>
+            </select>
+        </div>
+        )}
+
       {role === 'student' && (
         <NewApplicationForm onSubmitted={() => location.reload()} />
       )}
+        
+    {filteredApps.length === 0 ? (
+    <p className="text-gray-500">No applications found for selected filter.</p>
+    ) : (
+    <div className="space-y-4">
+        {filteredApps.map((app) => (
+        <div key={app._id} className="bg-white p-4 rounded shadow-sm border">
+            {/* Your existing rendering logic inside each application card */}
+            {/* For example: */}
+            <p className="font-semibold">
+            {role === 'faculty' && <span>{app.studentName} – </span>}
+            {app.certificateType} – {app.department}
+            </p>
 
-      {applications.length === 0 ? (
-        <p className="text-gray-500">No applications found.</p>
-      ) : (
-        <div className="space-y-4">
-          {applications.map((app) => (
-            <div
-              key={app._id}
-              className="border p-4 rounded shadow-sm bg-white"
+            <p className="text-sm text-gray-600">
+            Status: {app.status} – Submitted on: {new Date(app.submittedAt).toLocaleDateString()}
+            </p>
+
+            {/* Approvals list */}
+            {role === 'student' && (
+            <ul className="text-sm mt-2 list-disc ml-4">
+                {app.approvals.map((a, i) => (
+                <li key={i} className={a.approved ? 'text-green-600' : 'text-gray-600'}>
+                    {formatDept(a.department)} – {a.approved ? '✔ Verified' : '❌ Pending'}
+                    {a.verifiedAt && (
+                    <span className="ml-2 text-xs text-gray-500">
+                        (on {new Date(a.verifiedAt).toLocaleDateString()})
+                    </span>
+                    )}
+                </li>
+                ))}
+            </ul>
+            )}
+
+            {/* Certificate Download */}
+            {role === 'student' && app.status === 'completed' && (
+            <a
+                href={`/api/applications/${app._id}/certificate`}
+                target="_blank"
+                className="inline-block mt-2 text-blue-600 hover:underline text-sm"
             >
-              <p className="font-semibold">
-                {role === 'faculty' && <span>{app.studentName} – </span>}
-                {app.certificateType} – {app.department}
-              </p>
-              <p>Status: <span className="font-mono">{app.status}</span></p>
+                📄 Download Certificate
+            </a>
+            )}
 
-              {role === 'faculty' && (
-                <div className="mt-2 flex gap-2">
-                  <VerifyButtons applicationId={app._id} />
-                </div>
-              )}
-
-              {role === 'student' && (
-                <div className="mt-2">
-                  <p className="text-sm text-gray-600">Approvals:</p>
-                  <ul className="list-disc ml-5 text-sm">
-                    {app.approvals.map((a, i) => (
-                      <li key={i} className={a.approved ? 'text-green-600' : 'text-gray-600'}>
-                        {formatDept(a.department)} – {a.approved ? '✔ Verified' : '❌ Pending'}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+            {/* Faculty Verify Buttons */}
+            {role === 'faculty' && (
+            <div className="mt-2 flex gap-2">
+                <VerifyButtons applicationId={app._id} />
             </div>
-          ))}
+            )}
         </div>
-      )}
+        ))}
+    </div>
+    )}
     </div>
     </div>
-  
+    </div>
   )
 }
 

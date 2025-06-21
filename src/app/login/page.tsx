@@ -34,7 +34,13 @@ export default function LoginPage() {
       localStorage.setItem('token', data.token)
       localStorage.setItem('role', data.role)
 
+      // Redirect based on role
+      if (data.role === 'admin') {
+      router.push('/admin')
+      } else {
       router.push('/dashboard')
+      }
+
     } catch (err: any) {
       setError('An error occurred')
     } finally {
