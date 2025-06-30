@@ -1,71 +1,57 @@
-# 🏫 College Certificate Portal
+# College Certificate Portal
 
-A full-stack web app for managing student certificate requests (e.g., Bonafide, Domicile, Leaving Certificate).  
-Built with **Next.js 15 App Router**, **Node.js**, **MongoDB**, and **PDF generation**.
+A web application for managing student certificate requests (Bonafide, Domicile, Leaving Certificate) with department-wise approval workflow.
 
-👉 **Live Demo:** [https://college-certificate-portal-qlgf.vercel.app](https://college-certificate-portal-qlgf.vercel.app)
+**Live Demo:** [https://college-certificate-portal-qlgf.vercel.app](https://college-certificate-portal-qlgf.vercel.app)
 
----
+## Features
 
-## ✨ Features
+- Student portal for certificate applications
+- Department-wise faculty verification system
+- Auto-generated PDF certificates on approval
+- Admin dashboard for oversight
+- Role-based authentication (Student/Faculty/Admin)
+- Application status tracking with approval history
 
-- 🎓 Student portal to submit applications for official documents
-- 🧑‍🏫 Department-wise faculty verification (library, hostel, gym, dean, etc.)
-- 📄 Auto-generated PDF certificate on final approval
-- 🧑‍💼 Admin dashboard to view all applications
-- 🔐 Role-based login: Student / Faculty / Admin
-- ✅ Status tracking with approval history and dates
-- ⚡ Built with modern tech (Next.js App Router, API Routes, Tailwind CSS)
+## Tech Stack
 
----
-
-## 🚀 Tech Stack
-
-- **Frontend:** React + Next.js 15 (App Router)
-- **Backend:** Node.js API Routes
+- **Frontend:** Next.js 15 (App Router), React, Tailwind CSS
+- **Backend:** Node.js API Routes  
 - **Database:** MongoDB Atlas
-- **Auth:** JWT (JSON Web Tokens)
-- **Styling:** Tailwind CSS
-- **PDF Generation:** `pdf-lib`
+- **Authentication:** JWT
+- **PDF Generation:** pdf-lib
 
----
+## Demo Accounts
 
-## 🔐 Demo Logins
+**Student:**
+- Email: `student@demo.com`
+- Password: `test123`
 
-> These accounts are already created for demo purposes.
+**Faculty Accounts:**
+- Library: `library@college.com` / `test123`
+- Gym: `gym@college.com` / `test123`  
+- Dean: `dean@college.com` / `test123`
+- Program Office: `program@college.com` / `test123`
+- Hostel: `hostel@college.com` / `test123`
 
-### 🔹 Student
+**Admin:**
+- Email: `admin@college.com`
+- Password: `test123`
 
-- **Email:** `student@demo.com`  
-- **Password:** `test123`
-
-### 🔹 Faculty Accounts
-
-| Department       | Email                    | Password  |
-|------------------|--------------------------|-----------|
-| Library          | `library@college.com`    | `test123` |
-| Gym              | `gym@college.com`        | `test123` |
-| Dean             | `dean@college.com`       | `test123` |
-| Program Office   | `program@college.com`    | `test123` |
-| Hostel           | `hostel@college.com`     | `test123` |
-
-### 🔹 Admin
-
-- **Email:** `admin@college.com`  
-- **Password:** `test123`
-
----
-
-## 🧪 Running Locally
+## Local Setup
 
 ```bash
 git clone https://github.com/Xelane/College-Certificate-Portal.git
 cd College-Certificate-Portal
 npm install
+```
 
-# Create .env.local with:
-MONGODB_URI=<your-mongodb-uri>
-JWT_SECRET=<your-secret-key>
+Create `.env.local`:
+```
+MONGODB_URI=your-mongodb-uri
+JWT_SECRET=your-secret-key
+```
 
+```bash
 npm run dev
 ```
