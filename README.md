@@ -52,6 +52,7 @@ MONGODB_URI=your-mongodb-uri
 JWT_SECRET=your-secret-key
 ```
 
+To run:
 ```bash
 npm run dev
 ```
