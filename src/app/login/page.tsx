@@ -1,36 +1,31 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-
 export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError('')
-
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       })
-
       const data = await res.json()
       if (!res.ok) {
         setError(data.message || 'Login failed')
         setLoading(false)
         return
       }
-
       localStorage.setItem('token', data.token)
       localStorage.setItem('role', data.role)
-      
+     
       // Redirect based on role
       if (data.role === 'admin') {
         router.push('/admin')
@@ -43,17 +38,16 @@ export default function LoginPage() {
       setLoading(false)
     }
   }
-
   return (
     <div className="min-h-screen bg-gray-100 text-black">
       <div className="p-6 max-w-4xl mx-auto">
-        <div className="min-h-screen flex items-center justify-center">
+        <div className="min-h-screen flex flex-col items-center justify-center">
           <form
             onSubmit={handleSubmit}
             className="bg-white p-8 rounded shadow-sm border w-full max-w-sm"
           >
             <h1 className="text-2xl font-bold mb-6">Login</h1>
-            
+           
             <div className="mb-4">
               <label className="text-sm block mb-1">Email</label>
               <input
@@ -64,7 +58,6 @@ export default function LoginPage() {
                 required
               />
             </div>
-
             <div className="mb-4">
               <label className="text-sm block mb-1">Password</label>
               <input
@@ -75,9 +68,7 @@ export default function LoginPage() {
                 required
               />
             </div>
-
             {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
-
             <button
               type="submit"
               disabled={loading}
@@ -86,11 +77,10 @@ export default function LoginPage() {
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
-
           <p className="text-gray-500 text-sm mt-4 text-center">
-            No account? Check{' '}
-            <a 
-              href="https://github.com/yourusername/yourrepo" 
+            Check{' '}
+            <a
+              href="https://github.com/Xelane/College-Certificate-Portal"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 hover:underline"
