@@ -4,6 +4,12 @@ A web application for managing student certificate requests (Bonafide, Domicile,
 
 **Live Demo:** [https://college-certificate-portal.vercel.app](https://college-certificate-portal.vercel.app)
 
+## Screenshots
+
+![Student Page](./screenshots/student.png)
+![Admin Page](./screenshots/admin.png)
+![PDF](./screenshots/pdf.png)
+
 ## Features
 
 - Student portal for certificate applications
