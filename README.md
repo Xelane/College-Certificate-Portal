@@ -2,7 +2,7 @@
 
 A web application for managing student certificate requests (Bonafide, Domicile, Leaving Certificate) with department-wise approval workflow.
 
-**Live Demo:** [https://college-certificate-portal-qlgf.vercel.app](https://college-certificate-portal-qlgf.vercel.app)
+**Live Demo:** [https://college-certificate-portal.vercel.app](https://college-certificate-portal.vercel.app)
 
 ## Features
 
